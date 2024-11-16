@@ -39,6 +39,7 @@
     align-items: center;
     height: 100vh;
     gap: 10px;
+    z-index: 1; 
   }
   
   .styled-input {
@@ -52,12 +53,14 @@
     font-size: 1em;
     outline: none;
     transition: border-color 0.3s;
+    z-index: 1; 
   }
   
   label{
     display: block;
     margin: 10px 0 5px;
     font-family:"Space Grotesk", "Roboto";
+    z-index:1; 
   }
   
   .styled-input:focus {
@@ -78,6 +81,7 @@
     font-size: 1em;
     outline: none;
     transition: border-color 0.3s, background 0.3s;
+    z-index:1; 
   }
 
   .enter-sub:hover {
@@ -86,6 +90,22 @@
   }
 
   
+  iframe{
+    width:100vw; 
+    height:100vh; 
+    margin-right: auto; 
+    position: absolute;
+    z-index: 0;
+    top:0;
+    right:0; 
+    border:none; 
+    overflow: hidden;
+  }
+
+  iframe:nth-of-type(2){
+    z-index:-1
+  }
+
   /* Responsive adjustments */
   @media (max-width: 750px) {
     h1 {
@@ -99,7 +119,6 @@
     }
     
   }
-
 
   @media (max-height: 600px) {
     .enter {
