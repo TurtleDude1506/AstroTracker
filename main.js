@@ -3,123 +3,84 @@ let END_DATE = "2015-09-04";
 
 // API key and URL to allow for data fetching
 const key = "hVbFkv9OANU05lWkidNnWRXLGKeV5i9JEzAVFnvu";
-const apiURL = "https://api.nasa.gov/neo/rest/v1/feed?start_date="+START_DATE+"&end_date="+END_DATE+"&api_key="+key;
+const apiURL = `https://api.nasa.gov/neo/rest/v1/feed?start_date=${START_DATE}&end_date=${END_DATE}&api_key=${key}`;
 
 // Function that grabs and returns the necessary asteroid data.
-async function get_data(url){
-    // Fetch statement grabs data from the NASA API
-    let data = fetch(url)
+async function get_data(url) {
+    try {
+        // Fetch statement grabs data from the NASA API
+        const response = await fetch(url);
+        
         // If the response is invalid for whatever reason
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not skibidi.');
-            }
-            return response.json();
-        })
-        // Once its confirmed that the response is valid
-        .then(data => {
-            return data;
-        })
+        if (!response.ok) {
+            throw new Error('Network response was not okay.');
+        }
+        
+        // Once it's confirmed that the response is valid
+        const data = await response.json();
+        // Sends back the unedited data provided by the API
+        return data;
+    } catch (error) {
         // If any error occurs
-        .catch(error => {
-            console.error('Error:', error);
-    });
-    // Sends back the unedited data provided by the API
-    return data;
-};
+        console.error('Error:', error);
+        return null;
+    }
+}
 
 // Function that organizes and discards irrelevant data from the dataset provided by the API
-function parse_data(data){
+function parse_data(data) {
     try {
-        let sorted_data = sort_data(data);
+        const sorted_data = sort_data(data);
         
-        let important_data = [];
-        for (let i of sorted_data){
-            let asteroid = {};
-            
-            asteroid["name"] = i["name"];
-            
-            asteroid["diameter_km"] = i["estimated_diameter"]["kilometers"];
-            
-            for (let j in asteroid["diameter_km"]){
-                asteroid["diameter_km"][j] = Math.round(asteroid["diameter_km"][j]*1000)/1000;
-            }
-            
-            let cad = i["close_approach_data"];
-            
-            let date = cad[0]["close_approach_date"];
-            let time_uncondensed = cad[0]["close_approach_date_full"];
-            let distance = Math.round(cad[0]["miss_distance"]["astronomical"]*100)/100;
-            let velocity = Math.round(cad[0]["relative_velocity"]["kilometers_per_second"]*100)/100;
-            
-            asteroid["close_approach"] = {
-                "approach_date":date,
-                "approach_time":time_uncondensed.slice(time_uncondensed.indexOf(" ")+1),
-                "approach_distance_au":distance,
-                "approach_velocity_kmps":velocity
-            }
-            
-            asteroid["hazard"] = i["is_potentially_hazardous_asteroid"];
-            
-            important_data.push(asteroid);
-        }
+        const important_data = sorted_data.map(i => {
+            const asteroid = {
+                name: i.name,
+                diameter_km: Object.fromEntries(
+                    Object.entries(i.estimated_diameter.kilometers).map(([key, value]) => [key, Math.round(value * 1000) / 1000])
+                ),
+                close_approach: {
+                    approach_date: i.close_approach_data[0].close_approach_date,
+                    approach_time: i.close_approach_data[0].close_approach_date_full.split(' ')[1],
+                    approach_distance_au: Math.round(i.close_approach_data[0].miss_distance.astronomical * 100) / 100,
+                    approach_velocity_kmps: Math.round(i.close_approach_data[0].relative_velocity.kilometers_per_second * 100) / 100
+                },
+                hazard: i.is_potentially_hazardous_asteroid
+            };
+            return asteroid;
+        });
         
         return important_data;
-    } catch (TypeError){
+    } catch (TypeError) {
         alert("That data appears to be invalid.");
-        return 0;
+        return null;
     }
-};
+}
 
 // Organizes the data by date and time
-function sort_data(data){
-    let num_objects = data["element_count"];
-    let objects = data["near_earth_objects"];
-    
-    let dates = Object.keys(objects).sort();
-
-    let result = [];
-    for (let i of dates){
-        result.push(objects[i].sort(date_sorting_algorithm));
-    }
-    
-    let final = [];
-    for (let i of result){
-        for (let j of i){
-            final.push(j);
-        }
-    }
-    
-    return final;
-};
+function sort_data(data) {
+    const dates = Object.keys(data.near_earth_objects).sort();
+    const sorted_objects = dates.flatMap(date => data.near_earth_objects[date].sort(date_sorting_algorithm));
+    return sorted_objects;
+}
 
 // Algorithm that takes two times and compares them
-function date_sorting_algorithm(a,b){
-    let d1 = a["close_approach_data"][0]["close_approach_date_full"];
-    let d2 = b["close_approach_data"][0]["close_approach_date_full"];
-    
-    let t1 = d1.slice(d1.indexOf(" ")+1);
-    let t2 = d2.slice(d2.indexOf(" ")+1);
-    
-    let h1 = +t1.slice(0,2);
-    let h2 = +t2.slice(0,2);
-    let m1 = +t1.slice(3,5);
-    let m2 = +t2.slice(3,5);
-    
-    if (h1>h2){
-        return 1;
-    } else if (h1==h2){
-        if (m1>=m2){
-            return 1;
-        } else {
-            return -1;
-        }
+function date_sorting_algorithm(a, b) {
+    const [d1, d2] = [a.close_approach_data[0].close_approach_date_full, b.close_approach_data[0].close_approach_date_full];
+    const [t1, t2] = [d1.split(' ')[1], d2.split(' ')[1]];
+    const [h1, h2] = [parseInt(t1.slice(0, 2)), parseInt(t2.slice(0, 2))];
+    const [m1, m2] = [parseInt(t1.slice(3, 5)), parseInt(t2.slice(3, 5))];
+
+    if (h1 > h2) return 1;
+    if (h1 === h2) return m1 >= m2 ? 1 : -1;
+    return -1;
+}
+
+(async () => {
+    const raw_data = await get_data(apiURL);
+    if (raw_data) {
+        const parsed_data = parse_data(raw_data);
+        console.log(parsed_data);
     } else {
-        return -1;
+        console.log('Failed to retrieve data.');
     }
-};
-
-let raw_data = await get_data(apiURL);
-let parsed_data = parse_data(raw_data);
-
-console.log(parsed_data);
+})();
