@@ -86,7 +86,7 @@
 
   
   /* Responsive adjustments */
-  @media (max-width: 600px) {
+  @media (max-width: 750px) {
     h1 {
       font-size: 2em;
     }
@@ -96,5 +96,28 @@
       padding: 8px;
       border-radius: 5px;
     }
+    
   }
+
+
+  @media (max-height: 600px) {
+    .enter {
+      margin-top: 20vh;
+    }
+    .enter-sub{
+      width: 80%;
+      padding: 8px;
+      border-radius: 5px;
+
+    }
+  }
+
+  @media (max-height: 490px) {
+    .enter {
+      margin-top: 60vh;
+
+    }
+  }
+  
+
   
