@@ -1,10 +1,5 @@
-// This will be changed to user inputs later
-let START_DATE = "2015-09-01";
-let END_DATE = "2015-09-04";
-
 // API key and URL to allow for data fetching
 const key = "hVbFkv9OANU05lWkidNnWRXLGKeV5i9JEzAVFnvu";
-const apiURL = `https://api.nasa.gov/neo/rest/v1/feed?start_date=${START_DATE}&end_date=${END_DATE}&api_key=${key}`;
 
 // Function that grabs and returns the necessary asteroid data.
 async function get_data(url) {
@@ -26,7 +21,7 @@ async function get_data(url) {
         console.error('Error:', error);
         return null;
     }
-}
+};
 
 // Function that organizes and discards irrelevant data from the dataset provided by the API
 function parse_data(data) {
@@ -55,14 +50,14 @@ function parse_data(data) {
         alert("That data appears to be invalid.");
         return null;
     }
-}
+};
 
 // Organizes the data by date and time
 function sort_data(data) {
     const dates = Object.keys(data.near_earth_objects).sort();
     const sorted_objects = dates.flatMap(date => data.near_earth_objects[date].sort(date_sorting_algorithm));
     return sorted_objects;
-}
+};
 
 // Algorithm that takes two times and compares them
 function date_sorting_algorithm(a, b) {
@@ -74,9 +69,14 @@ function date_sorting_algorithm(a, b) {
     if (h1 > h2) return 1;
     if (h1 === h2) return m1 >= m2 ? 1 : -1;
     return -1;
-}
+};
 
-(async () => {
+async function submitForm(){
+    let START_DATE = document.getElementById('start').value;
+    let END_DATE = document.getElementById('end').value;
+    
+    const apiURL = `https://api.nasa.gov/neo/rest/v1/feed?start_date=${START_DATE}&end_date=${END_DATE}&api_key=${key}`;
+    
     const raw_data = await get_data(apiURL);
     if (raw_data) {
         const parsed_data = parse_data(raw_data);
@@ -84,4 +84,4 @@ function date_sorting_algorithm(a, b) {
     } else {
         console.log('Failed to retrieve data.');
     }
-})();
+};
