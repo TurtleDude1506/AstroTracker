@@ -77,11 +77,12 @@
     color: black;
     font-size: 1em;
     outline: none;
-    transition: border-color 0.3s;
+    transition: border-color 0.3s, background 0.3s;
   }
 
   .enter-sub:hover {
     border-color: #007BFF;
+    background:#007BFF;
   }
 
   
