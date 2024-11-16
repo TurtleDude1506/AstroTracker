@@ -1,3 +1,4 @@
+// This will be changed to user inputs later
 let START_DATE = "2015-09-01";
 let END_DATE = "2015-09-04";
 
