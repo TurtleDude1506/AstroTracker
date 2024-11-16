@@ -1,3 +1,4 @@
+// This will be changed to user inputs later
 let START_DATE = "2015-09-01";
 let END_DATE = "2015-09-04";
 
@@ -12,7 +13,7 @@ async function get_data(url){
         // If the response is invalid for whatever reason
         .then(response => {
             if (!response.ok) {
-                throw new Error('Network response was not skibidi.');
+                throw new Error('Network response was not valid. Sorry to disappoint.');
             }
             return response.json();
         })
@@ -30,10 +31,13 @@ async function get_data(url){
 
 // Function that organizes and discards irrelevant data from the dataset provided by the API
 function parse_data(data){
+    // Error correction block in case the date given to the API was invalid
     try {
         let sorted_data = sort_data(data);
         
         let important_data = [];
+
+        // Loops through the lump of data that NASA gave and returns a much more condensed version with only necessary information
         for (let i of sorted_data){
             let asteroid = {};
             
@@ -66,7 +70,7 @@ function parse_data(data){
         
         return important_data;
     } catch (TypeError){
-        alert("That data appears to be invalid.");
+        alert("That data appears to be invalid. Try entering two dates within the span of 7 days.");
         return 0;
     }
 };
@@ -78,11 +82,13 @@ function sort_data(data){
     
     let dates = Object.keys(objects).sort();
 
+    // Loops through the dates to keep everything in order by date and time
     let result = [];
     for (let i of dates){
         result.push(objects[i].sort(date_sorting_algorithm));
     }
-    
+
+    // Turns the list with sublists into one large list of contents
     let final = [];
     for (let i of result){
         for (let j of i){
@@ -119,7 +125,9 @@ function date_sorting_algorithm(a,b){
     }
 };
 
+// Function calls to collect and tranform data
 let raw_data = await get_data(apiURL);
 let parsed_data = parse_data(raw_data);
 
+// Final result
 console.log(parsed_data);
