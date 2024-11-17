@@ -6,7 +6,8 @@ let forwards = document.getElementById("start");
 backwards.style.display = 'none'
 let length = final_parse.length;
 
-document.getElementById("between").textContent = "ASTEROIDS NEAR EARTH 🌎 BETWEEN " + final_parse[0]["close_approach"]["approach_date"] + " TO " + final_parse[length-1]["close_approach"]["approach_date"] 
+document.getElementById("between").innerHTML = "ASTEROIDS NEAR EARTH 🌎<br>BETWEEN " + final_parse[0]["close_approach"]["approach_date"] + " TO " + final_parse[length-1]["close_approach"]["approach_date"];
+
 
 
 function print_everthing(){
@@ -16,10 +17,10 @@ function print_everthing(){
     document.getElementById("aster-close").textContent = "Closest Approach 🤏: " + final_parse[current]["close_approach"]["approach_distance_au"] + " AU";
     document.getElementById("aster-vel").textContent = "Asteroid Velocity 🏎️: " + final_parse[current]["close_approach"]["approach_velocity_kmps"] + " km/s";
     if (final_parse[current]["hazard"]){
-        document.getElementById("aster-hazard").textContent = "Hazardous ⚠️: Yes";
+        document.getElementById("aster-hazard").textContent = "Potentinally Hazardous ⚠️: Yes";
     }
     else{
-        document.getElementById("aster-hazard").textContent = "Hazardous ⚠️: No";
+        document.getElementById("aster-hazard").textContent = "Potentially Hazardous ⚠️: No";
     };
 }
 

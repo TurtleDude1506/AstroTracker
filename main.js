@@ -1,4 +1,5 @@
 // API key and URL to allow for data fetching
+
 const key = "hVbFkv9OANU05lWkidNnWRXLGKeV5i9JEzAVFnvu";
 
 // Function that grabs and returns the necessary asteroid data.
