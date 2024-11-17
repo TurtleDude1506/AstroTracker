@@ -30,7 +30,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
   }
-  
+
   .enter {
     display: flex;
     margin-top: 10vh;
@@ -106,6 +106,14 @@
     z-index:-1
   }
 
+  .aster{
+    margin-top: 30vh;
+    user-select: none; 
+    -webkit-user-select: none; 
+    -moz-user-select: none;  
+    -ms-user-select: none; 
+  }
+
   /* Responsive adjustments */
   @media (max-width: 750px) {
     h1 {
@@ -130,6 +138,7 @@
       border-radius: 5px;
 
     }
+    
   }
 
   @media (max-height: 490px) {

@@ -71,7 +71,8 @@ function date_sorting_algorithm(a, b) {
     return -1;
 };
 
-async function submitForm(){
+
+ async function submitForm(){
     let START_DATE = document.getElementById('start').value;
     let END_DATE = document.getElementById('end').value;
     
@@ -81,7 +82,10 @@ async function submitForm(){
     if (raw_data) {
         const parsed_data = parse_data(raw_data);
         console.log(parsed_data);
+        localStorage.setItem("end-parse", JSON.stringify(parsed_data));
+        window.location.href="second.html";
     } else {
         console.log('Failed to retrieve data.');
+        alert("Cannot get data.");
     }
 };
