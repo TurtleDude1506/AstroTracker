@@ -75,7 +75,6 @@ function date_sorting_algorithm(a, b) {
  async function submitForm(){
     let START_DATE = document.getElementById('start').value;
     let END_DATE = document.getElementById('end').value;
-    
     const apiURL = `https://api.nasa.gov/neo/rest/v1/feed?start_date=${START_DATE}&end_date=${END_DATE}&api_key=${key}`;
     
     const raw_data = await get_data(apiURL);
@@ -83,8 +82,8 @@ function date_sorting_algorithm(a, b) {
         const parsed_data = parse_data(raw_data);
         console.log(parsed_data);
         if (parsed_data.length<1){
-            throw new Error("Invalid data.");
             alert("Data was not valid. Try different dates.");
+            throw new Error("Invalid data.");
         }
         localStorage.setItem("end-parse", JSON.stringify(parsed_data));
         window.location.href="second.html";
