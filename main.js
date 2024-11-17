@@ -82,7 +82,7 @@ function date_sorting_algorithm(a, b) {
     if (raw_data) {
         const parsed_data = parse_data(raw_data);
         console.log(parsed_data);
-        if (parsed_data == null){
+        if (parsed_data.length<1){
             throw new Error("Invalid data.");
             alert("Data was not valid. Try different dates.");
         }
