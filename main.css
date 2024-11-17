@@ -175,6 +175,27 @@
     -ms-user-select: none; 
   }
 
+  audio{
+    display: none; 
+  }
+
+
+  #audioPlayer{
+    width: 10%; 
+    height: 10%; 
+  }
+
+  .audio_button button{
+    position:absolute; 
+    font-size: 2em; 
+    width: 5vw; 
+    height: 5vw; 
+    margin-left:-60%; 
+    margin-top: 18%; 
+    border-radius: 10px; 
+    background-color:#191970; 
+  }
+
   /* Responsive adjustments */
   @media (max-width: 750px) {
     h1 {
