@@ -28,26 +28,10 @@
       <h4 style="margin-top: 20px">
         Made with ♥️ by Error 404 for Hack the Skies 2024!
       </h4>
+      <button onclick="playMusic()" id="mute" class="audio-press">🔇</button>
     </div>
-
-    <div class="audio_button">
-    <button onclick="playMusic()">🔉</button>
-  </div>
-
-    <audio id="audioPlayer" autoplay loop controls>
-      <source src="Cornfield Chase.mp3" type="audio/mp3">
-  </audio>
-
-  <script>
-function playMusic() {
-    var audio = document.getElementById('audioPlayer');
-    if (audio.paused) {
-        audio.play();
-    } else {
-        audio.pause(); // Pause the audio if it's already playing
-    }
-}
-</script>
-
+    <audio id="audioPlayer" loop controls>
+      <source src="Cornfield Chase.mp3" type="audio/mp3" />
+    </audio>
   </body>
 </html>

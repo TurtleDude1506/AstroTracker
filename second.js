@@ -3,8 +3,32 @@ console.log(final_parse);
 let current = 0;
 let backwards = document.getElementById("back");
 let forwards = document.getElementById("start");
+const audios = document.getElementById("audioPlayer")
 backwards.style.display = 'none'
 let length = final_parse.length;
+
+audios.volume = 0;
+
+function playMusictwo() {
+    var audio = document.getElementById("audioPlayer");
+    audio.volume = 0.0;
+    audio.play;
+    if (audio.paused) {
+      audio.play();
+      document.getElementById("mute").textContent = "🔉";
+      audio.volume = 0.02;
+    } else {
+      audio.pause(); // Pause the audio if it's already playing
+      document.getElementById("mute").textContent = "🔇";
+      audio.volume = 0.02;
+    }
+  }
+
+  function mute(){
+    audio.volume = 0;
+  }
+
+
 
 document.getElementById("between").innerHTML = "ASTEROIDS NEAR EARTH 🌎<br>BETWEEN " + final_parse[0]["close_approach"]["approach_date"] + " TO " + final_parse[length-1]["close_approach"]["approach_date"];
 

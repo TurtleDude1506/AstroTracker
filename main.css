@@ -13,6 +13,7 @@
   body {
     background-color: #090b0c;
     background-image:url("websitegif1.gif");
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -68,7 +69,7 @@
 
   .enter {
     display: flex;
-    margin-top: 10vh;
+    margin-top: 20vh;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -83,7 +84,7 @@
   
   .enter-two{
     display: flex;
-    margin-top: 20vh;
+    margin-top: 30vh;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -114,6 +115,7 @@
     outline: none;
     transition: border-color 0.3s, background 0.3s;
     z-index: 1; 
+    cursor: pointer; 
   }
   
   label{
@@ -187,16 +189,57 @@
 
   .audio_button button{
     position:absolute; 
-    font-size: 2em; 
-    width: 5vw; 
-    height: 5vw; 
+    font-size: 1em; 
+    width: 3vw; 
+    height: 3vw; 
     margin-left:-60%; 
     margin-top: 18%; 
     border-radius: 10px; 
-    background-color:#191970; 
+    background-color:#fff; 
+    border-radius: 30px;
   }
 
+    .audio-press {
+      font-size: 1em; 
+      width: 3vw; 
+      height: 3vw; 
+      border-radius: 30px; 
+      background-color: #fff; 
+      border: 2px solid; 
+      color: #333; 
+      cursor: pointer; 
+      transition: background-color 0.3s ease, box-shadow 0.3s ease; 
+  }
+  
+  /* Media query for smaller devices */
+  @media (max-width: 768px) {
+      .audio-press {
+          width: 50px; /* Adjust size for small screens */
+          height: 50px; /* Adjust size for small screens */
+      }
+  }
+  
+  .audio-press:hover {
+      background-color: #007BFF; 
+  }
+  
+  
+
+
+
+
   /* Responsive adjustments */
+
+  @media (max-width: 400px) {
+
+    .enter-two {
+      margin-top: 50vh;
+    }
+
+    
+  }
+
+
   @media (max-width: 750px) {
     h1 {
       top: 25%;
@@ -215,11 +258,11 @@
   @media (max-height: 740px) {
 
     .enter-two {
-      margin-top: 40vh;
+      margin-top: 50vh;
     }
 
     .enter {
-      margin-top: 30vh;
+      margin-top: 40vh;
     }
     
     #between{
@@ -235,7 +278,7 @@
   
   @media (max-height: 600px) {
     .enter {
-      margin-top: 70vh;
+      margin-top: 80vh;
     }
     .enter-sub{
       width: 80%;
@@ -243,18 +286,18 @@
       border-radius: 5px;
     }
     .enter-two {
-      margin-top: 45vh;
+      margin-top: 55vh;
     }
     
   }
 
   @media (max-height: 490px) {
     .enter {
-      margin-top: 60vh;
+      margin-top: 70vh;
 
     }
     .enter-two {
-      margin-top: 90vh;
+      margin-top: 100vh;
     }
   }
   

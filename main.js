@@ -1,5 +1,24 @@
 // API key and URL to allow for data fetching
 
+function playMusic() {
+    var audio = document.getElementById("audioPlayer");
+    audio.volume = 0.0;
+    if (audio.paused) {
+      audio.play();
+      document.getElementById("mute").textContent = "🔉";
+      audio.volume = 0.02;
+    } else {
+      audio.pause(); // Pause the audio if it's already playing
+      document.getElementById("mute").textContent = "🔇";
+      audio.volume = 0.02;
+    }
+  }
+
+
+
+
+
+
 const key = "hVbFkv9OANU05lWkidNnWRXLGKeV5i9JEzAVFnvu";
 
 // Function that grabs and returns the necessary asteroid data.
